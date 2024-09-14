@@ -3,13 +3,13 @@
  * @Author     : Wang Chao
  * @Date       : 2024-08-18 09:52
  * @LastAuthor : Wang Chao
- * @LastTime   : 2024-09-14 11:15
+ * @LastTime   : 2024-09-14 22:07
  * @desc       :
  */
-// FIXME 银行卡号解析
 
 import { basekit, FieldType, field, FieldComponent, FieldCode } from '@lark-opdev/block-basekit-server-api';
 import { searchCardBin } from 'bankcard';
+import { pinyin } from 'pinyin-pro';
 
 const { t } = field;
 
@@ -65,16 +65,26 @@ basekit.addField({
       },
       properties: [
         {
-          key: 'bankName',
+          key: 'type1',
           primary: true,
           isGroupByKey: true,
           type: FieldType.Text,
-          title: t('bankName'),
+          title: '不带音调拼音',
         },
         {
-          key: 'cardType',
+          key: 'type2',
           type: FieldType.Text,
-          title: t('cardType'),
+          title: '带音调拼音',
+        },
+        {
+          key: 'type3',
+          type: FieldType.Text,
+          title: '拼音首字母小写',
+        },
+        {
+          key: 'type4',
+          type: FieldType.Text,
+          title: '拼音首字母大写',
         },
       ],
     },
@@ -86,14 +96,16 @@ basekit.addField({
     // 数字类型 source 直接为值
     //  文本类型 source 为 [{ type: 'text , text '8'}]
     const sourceValue = Array.isArray(source) && source.length > 0 && source[0].text.split(' ').join('');
-    const res = await searchCardBin(sourceValue as string);
+    // const res = await searchCardBin(sourceValue as string);
 
     try {
       return {
         code: FieldCode.Success,
         data: {
-          bankName: res.bankName,
-          cardType: res.cardTypeName,
+          type1: pinyin(sourceValue, { toneType: 'none' }),
+          type2: pinyin(sourceValue),
+          type3: pinyin(sourceValue, { pattern: 'first', separator: '' }),
+          type4: pinyin(sourceValue, { pattern: 'first', separator: '' }).toUpperCase(),
         },
       };
     } catch (e) {
