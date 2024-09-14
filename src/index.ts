@@ -3,7 +3,7 @@
  * @Author     : Wang Chao
  * @Date       : 2024-08-18 09:52
  * @LastAuthor : Wang Chao
- * @LastTime   : 2024-09-14 22:07
+ * @LastTime   : 2024-09-14 22:31
  * @desc       :
  */
 
@@ -23,20 +23,26 @@ basekit.addField({
       'zh-CN': {
         source: '选择待解析的字段',
         p1: '请选择文本类型字段',
-        bankName: '银行名字',
-        cardType: '卡种',
+        type1: '不带音调拼音',
+        type2: '带音调拼音',
+        type3: '拼音首字母小写',
+        type4: '拼音首字母大写',
       },
       'en-US': {
-        source: 'Select the field to convert',
-        p1: 'Please select a text field.',
-        bankName: 'Bank Name',
-        cardType: 'Card Type',
+        source: 'Select the field to parse',
+        p1: 'Please select a text-type field',
+        type1: 'Pinyin without tones',
+        type2: 'Pinyin with tones',
+        type3: 'Lowercase pinyin initials',
+        type4: 'Uppercase pinyin initials',
       },
       'ja-JP': {
-        source: '変換するフィールドを選択',
-        p1: 'テキストタイプのフィールドを選択',
-        bankName: '銀行名',
-        cardType: 'カード種別',
+        source: '解析するフィールドを選択してください',
+        p1: 'テキストタイプのフィールドを選択してください',
+        type1: '声調なしのピンイン',
+        type2: '声調付きのピンイン',
+        type3: '小文字のピンインの頭文字',
+        type4: '大文字のピンインの頭文字',
       },
     },
   },
@@ -60,8 +66,7 @@ basekit.addField({
     type: FieldType.Object,
     extra: {
       icon: {
-        light:
-          'https://lf3-static.bytednsdoc.com/obj/eden-cn/abjayvoz/ljhwZthlaukjlkulzlp/2024H2/yinhangka.png?x-resource-account=public',
+        light: '',
       },
       properties: [
         {
@@ -69,22 +74,22 @@ basekit.addField({
           primary: true,
           isGroupByKey: true,
           type: FieldType.Text,
-          title: '不带音调拼音',
+          title: t('type1'),
         },
         {
           key: 'type2',
           type: FieldType.Text,
-          title: '带音调拼音',
+          title: t('type2'),
         },
         {
           key: 'type3',
           type: FieldType.Text,
-          title: '拼音首字母小写',
+          title: t('type3'),
         },
         {
           key: 'type4',
           type: FieldType.Text,
-          title: '拼音首字母大写',
+          title: t('type4'),
         },
       ],
     },
@@ -96,7 +101,6 @@ basekit.addField({
     // 数字类型 source 直接为值
     //  文本类型 source 为 [{ type: 'text , text '8'}]
     const sourceValue = Array.isArray(source) && source.length > 0 && source[0].text.split(' ').join('');
-    // const res = await searchCardBin(sourceValue as string);
 
     try {
       return {
