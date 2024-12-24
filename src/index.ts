@@ -3,7 +3,7 @@
  * @Author     : Wang Chao
  * @Date       : 2024-08-18 09:52
  * @LastAuthor : Wang Chao
- * @LastTime   : 2024-09-14 22:31
+ * @LastTime   : 2024-11-14 10:37
  * @desc       :
  */
 
@@ -66,7 +66,7 @@ basekit.addField({
     type: FieldType.Object,
     extra: {
       icon: {
-        light: '',
+        light: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/abjayvoz/ljhwZthlaukjlkulzlp/2024H2/more/chi/pinyin.svg',
       },
       properties: [
         {
